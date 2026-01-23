@@ -4,7 +4,7 @@ package academy.devdojo.maratonajava.introducao;
  * Comentário JavaDoc
  *
  */
-public class OlaDevDojo {
+public class Aula01OlaDevDojo {
     //Isso é um comentário de uma linha
 
     /*Esse é um comentário de diversas linhas ipsum lorem dolus
