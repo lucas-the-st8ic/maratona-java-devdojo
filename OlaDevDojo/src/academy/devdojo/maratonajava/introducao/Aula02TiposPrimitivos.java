@@ -27,10 +27,15 @@ public class Aula02TiposPrimitivos {
         boolean verdadeiro = true;
         boolean falso = false;
         char caractere = 65;
+        String nome = "Lucas da Silva Santos";
 
 
         System.out.println("Idade: " +age);
         System.out.println(verdadeiro);
         System.out.printf("Carateres: " +caractere);
+
+        System.out.println(nome);
+
+        System.out.println("Nome: "+nome);
     }
 }
