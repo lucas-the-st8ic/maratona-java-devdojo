@@ -25,7 +25,6 @@ public class Aula04Operadores {
         <=
         >=
         !=
-
         */
 
         boolean isDezMaiorQueVinte = 10 > 20;
@@ -37,5 +36,26 @@ public class Aula04Operadores {
         System.out.println(isDezMenorQueVinte);
         System.out.println(isDezIgualAVinte);
         System.out.println(isDezDiferenteDeVinte);
+
+        /*Operadores Relacionais
+
+        && (AND) (E)
+        ||(OR) (OU)
+        ! (NEGAÇÃO)
+        */
+
+        int idade = 35;
+        double salario = 3500;
+
+        boolean isDentroDaLei = idade >= 30 && salario > 4612;
+        boolean isIdadeMenorQueTrinta = idade < 30 && salario >= 3381;
+
+        if(isDentroDaLei) {
+            System.out.println("Aprovado!!");
+        } else {
+            System.out.println("Não Atingiu os requisitos!");
+        }
+
+
     }
 }
