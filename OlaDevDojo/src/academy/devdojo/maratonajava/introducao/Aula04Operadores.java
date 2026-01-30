@@ -57,5 +57,10 @@ public class Aula04Operadores {
         }
 
 
+        double contaCorrente = 200;
+        double contaPoupança = 10000;
+        float valorPlaystation = 5000f;
+
+        boolean isPossivelComprarOPlaystation5 = contaCorrente >valorPlaystation || contaPoupança > valorPlaystation;
     }
 }
