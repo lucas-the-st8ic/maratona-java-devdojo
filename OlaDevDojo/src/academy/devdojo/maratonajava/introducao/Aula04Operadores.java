@@ -62,5 +62,7 @@ public class Aula04Operadores {
         float valorPlaystation = 5000f;
 
         boolean isPossivelComprarOPlaystation5 = contaCorrente >valorPlaystation || contaPoupança > valorPlaystation;
+
+        System.out.println(isPossivelComprarOPlaystation5);
     }
 }
