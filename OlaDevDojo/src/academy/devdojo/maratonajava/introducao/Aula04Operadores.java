@@ -81,7 +81,7 @@ public class Aula04Operadores {
         bonus *= 2;
         bonus /= 0.02;
         bonus %= bonus;
-        
+
         System.out.println(bonus);
     }
 }
