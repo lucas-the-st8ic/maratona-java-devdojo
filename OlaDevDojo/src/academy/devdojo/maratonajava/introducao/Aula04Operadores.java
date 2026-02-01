@@ -64,5 +64,24 @@ public class Aula04Operadores {
         boolean isPossivelComprarOPlaystation5 = contaCorrente >valorPlaystation || contaPoupança > valorPlaystation;
 
         System.out.println(isPossivelComprarOPlaystation5);
+
+        /*Operadores de atribuição
+            =
+            +=
+            -=
+            *=
+            /=
+            %=
+                */
+
+        double bonus = 1800;
+
+        bonus += 1000;
+        bonus -= 100;
+        bonus *= 2;
+        bonus /= 0.02;
+        bonus %= bonus;
+        
+        System.out.println(bonus);
     }
 }
