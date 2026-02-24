@@ -1,6 +1,6 @@
 package academy.devdojo.maratonajava.introducao;
 
-public class Aula08Arrays02 {
+public class Aula07Arrays02 {
     static void main(String[] args) {
 
         //Valores padrão de Arrays
