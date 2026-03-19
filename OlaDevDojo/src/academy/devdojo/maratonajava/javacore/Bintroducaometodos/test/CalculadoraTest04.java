@@ -7,12 +7,13 @@ public class CalculadoraTest04 {
 
         Calculadora calculadora = new Calculadora();
 
-        int primeiroNumero = 1;
-        int segundoNumero = 2;
+        int a = 1;
+        int b = 2;
 
-        calculadora.alteraDoisNumeros(primeiroNumero, segundoNumero);
+        calculadora.alteraDoisNumeros(a, b);
 
-        System.out.println(primeiroNumero);
-        System.out.println(segundoNumero);
+        System.out.println("Dentro CalculadoraTest04");
+        System.out.println(a);
+        System.out.println(b);
     }
 }

@@ -32,11 +32,11 @@ public class Calculadora {
 
     }
 
-    public void alteraDoisNumeros (int primeiroNumero, int segundoNumero) {
-        primeiroNumero = 99;
-        segundoNumero = 33;
+    public void alteraDoisNumeros (int numero1, int numero2) {
+        numero1 = 99;
+        numero2 = 33;
         System.out.println("Dentro do altera dois numeros");
-        System.out.println("Primeiro numero: " + primeiroNumero);
-        System.out.println("Segundo numero: " + segundoNumero);
+        System.out.println("Primeiro numero: " + numero1);
+        System.out.println("Segundo numero: " + numero2);
     }
 }
