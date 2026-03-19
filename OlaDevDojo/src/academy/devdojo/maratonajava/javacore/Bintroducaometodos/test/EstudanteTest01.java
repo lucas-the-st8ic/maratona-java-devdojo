@@ -21,6 +21,6 @@ public class EstudanteTest01 {
 
        impressao.imprimir(estudante01);
 
-       impressao.imprimir(estudante02);
+       impressao.imprimir(estudante02); 
     }
 }
