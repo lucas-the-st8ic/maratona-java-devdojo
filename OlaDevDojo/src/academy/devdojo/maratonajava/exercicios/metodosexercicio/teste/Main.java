@@ -21,6 +21,6 @@ public class Main {
         funcionario02.salarios =  new double[] {1200, 3458, 7920};
 
         funcionario02.imprimeDados();
-       
+
     }
 }

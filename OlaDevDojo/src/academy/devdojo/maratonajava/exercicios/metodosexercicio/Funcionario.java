@@ -11,13 +11,23 @@ public class Funcionario {
     public void imprimeDados (){
         System.out.println("Nome: "+this.nome);
         System.out.println("Idade: "+this.idade);
+
+        if(this.salarios == null){
+            return;
+        }
         for(double sal : salarios ) {
             System.out.println("Salario: R$"+sal);
         };
+        
         mediaSalarial();
     }
 
     public void mediaSalarial() {
+
+        if(this.salarios == null){
+            return;
+        }
+
         double media = Arrays.stream(salarios)
                 .summaryStatistics().getAverage();
 
