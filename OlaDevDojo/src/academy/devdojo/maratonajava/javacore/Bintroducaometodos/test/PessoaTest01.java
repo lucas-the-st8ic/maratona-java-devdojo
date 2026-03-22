@@ -10,6 +10,6 @@ public class PessoaTest01 {
         pessoa.setIdade(70);
         pessoa.imprime();
 
-        System.out.println(pessoa.getIdade());
+
     }
 }
