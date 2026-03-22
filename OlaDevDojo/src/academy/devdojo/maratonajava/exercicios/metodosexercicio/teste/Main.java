@@ -14,8 +14,6 @@ public class Main {
 
         funcionario01.imprimeDados();
 
-
-
         funcionario02.nome = "Carlos";
         funcionario02.idade = 30;
         funcionario02.salarios =  new double[] {1200, 3458, 7920};
