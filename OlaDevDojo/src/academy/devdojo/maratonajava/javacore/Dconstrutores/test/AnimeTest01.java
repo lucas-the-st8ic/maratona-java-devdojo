@@ -9,11 +9,12 @@ public class AnimeTest01 {
         Anime anime01 = new Anime("Hajime no Ippo",
                 "Animação",
                 80,
-                "Spokon");
+                "Spokon",
+                "Madhouse");
 
-        Anime anime02 = new Anime();
+        /*Anime anime02 = new Anime();*/
 
         anime01.imprime();
-        anime02.imprime();
+        /*anime02.imprime();*/
     }
 }
