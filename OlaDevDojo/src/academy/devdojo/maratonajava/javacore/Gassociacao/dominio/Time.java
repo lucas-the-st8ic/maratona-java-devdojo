@@ -16,7 +16,7 @@ public class Time {
 
     public void imprime() {
         System.out.println("Time: " +this.nome);
-        if (this.jogadores != null) {
+        if(jogadores == null){
             return;
         }
         for (Jogador jogador : this.jogadores) {
