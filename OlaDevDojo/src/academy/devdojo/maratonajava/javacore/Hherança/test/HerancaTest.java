@@ -15,16 +15,15 @@ public class HerancaTest {
         enderecoBob.setRua("Rua da Concha N°124");
         enderecoBob.setCep("28638-387");
 
-        Pessoa pessoa1 = new Pessoa();
-        pessoa1.setNome("King Crab");
+        Pessoa pessoa1 = new Pessoa("Plankton");
+
         pessoa1.setCpf("62082619028");
         pessoa1.setEndereco(endereco);
 
         pessoa1.imprime();
 
-        Funcionario funcionario1 = new Funcionario();
+        Funcionario funcionario1 = new Funcionario("Bob Esponja");
 
-        funcionario1.setNome("Bob Esponja");
         funcionario1.setCpf("54678868860");
         funcionario1.setEndereco(enderecoBob);
         funcionario1.setSalario(200);
