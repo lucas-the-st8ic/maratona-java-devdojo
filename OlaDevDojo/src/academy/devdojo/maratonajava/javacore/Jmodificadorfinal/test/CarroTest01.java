@@ -9,5 +9,10 @@ public class CarroTest01 {
         Comprador comprador2 = new Comprador();
 
         System.out.println(Carro.VELOCIDADE_LIMITE);
+        System.out.println(carro.COMPRADOR);
+        carro.COMPRADOR.setNome("Lucas");
+
+        System.out.println(Carro.VELOCIDADE_LIMITE);
+        System.out.println(carro.COMPRADOR);
     }
 }

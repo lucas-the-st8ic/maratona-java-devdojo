@@ -14,8 +14,6 @@ public class Comprador {
 
     @Override
     public String toString() {
-        return "Comprador{" +
-                "nome='" + nome + '\'' +
-                '}';
+        return "Comprador: " + this.nome;
     }
 }
