@@ -2,6 +2,7 @@ package academy.devdojo.maratonajava.javacore.Jmodificadorfinal.test;
 
 import academy.devdojo.maratonajava.javacore.Jmodificadorfinal.dominio.Carro;
 import academy.devdojo.maratonajava.javacore.Jmodificadorfinal.dominio.Comprador;
+import academy.devdojo.maratonajava.javacore.Jmodificadorfinal.dominio.Dodge;
 
 public class CarroTest01 {
     static void main(String[] args) {
@@ -14,5 +15,9 @@ public class CarroTest01 {
 
         System.out.println(Carro.VELOCIDADE_LIMITE);
         System.out.println(carro.COMPRADOR);
+
+        Dodge dodge = new Dodge();
+        dodge.setNome("Lucas");
+        dodge.imprime();
     }
 }
