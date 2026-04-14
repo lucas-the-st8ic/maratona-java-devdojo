@@ -15,5 +15,7 @@ public class ClienteTest01 {
 
         System.out.println(TipoPagamento.DEBITO.CalcularDesconto(100));
         System.out.println(TipoPagamento.CREDITO.CalcularDesconto(500));
+
+        TipoCliente.valueOf()
     }
 }
