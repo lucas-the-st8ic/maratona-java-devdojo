@@ -6,6 +6,8 @@ public class Gerente extends Funcionario{
         super(nome, salario);
     }
 
+
+
     @Override
     public void calculaBonus() {
 
@@ -17,4 +19,6 @@ public class Gerente extends Funcionario{
                 "Nome: " +nome+
                 "\nSalário: R$" +salario;
     }
+
+
 }
