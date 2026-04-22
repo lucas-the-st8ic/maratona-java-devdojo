@@ -4,7 +4,6 @@ public class VideoGame extends Produto{
 
     public static final double PORCENTAGEM_IMPOSTO = 0.25;
     private String memoria = "1TB";
-    private double valor;
 
     public VideoGame(String nome, double valor) {
         super(nome, valor);
