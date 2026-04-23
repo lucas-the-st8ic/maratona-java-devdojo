@@ -5,6 +5,7 @@ import academy.devdojo.maratonajava.javacore.Npolimorfismo.servico.RepositorioAr
 import academy.devdojo.maratonajava.javacore.Npolimorfismo.servico.RepositorioBancoDeDados;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class RepositorioTest {
@@ -14,7 +15,7 @@ public class RepositorioTest {
 
         repositorio.salvar();
 
-        List<String> list = new ArrayList<>();
+        List<String> list = new LinkedList<>();
         list.add("Bob Esponja");
         list.add("Lula Molusco");
         list.add("Sandy");
