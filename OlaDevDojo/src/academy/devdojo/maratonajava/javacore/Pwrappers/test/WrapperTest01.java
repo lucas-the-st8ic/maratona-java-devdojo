@@ -10,7 +10,7 @@ public class WrapperTest01 {
 
         byte byteP = 1;
         short shortP = 1;
-        int intP = 1;
+        int intP = 1; //autoboxing
         long longP = 10;
         float floatP = 10F;
         double doubleP = 10D;
@@ -26,7 +26,20 @@ public class WrapperTest01 {
         Character charW = 'W';
         Boolean booleanW = false;
 
-        List<Integer> lista = List.of(1,2,3,4,5,6);
+        /*Unboxing - Compilador Converte de maneira automática
+        um tipo wrapper(Objeto) de volta para
+        seu tipo primitivo correspondente.*/
+        int i = intW;
+
+        Integer intW2 = Integer.parseInt("1");
+        Integer intW3 = Integer.parseInt("1");
+
+        boolean aTrue = Boolean.parseBoolean("true");
+
+        System.out.println(aTrue);
+
+
+        System.out.println(Character.isDigit(charp));
     }
 
 }
