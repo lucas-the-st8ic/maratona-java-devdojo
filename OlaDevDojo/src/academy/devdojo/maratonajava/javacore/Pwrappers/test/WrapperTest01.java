@@ -14,7 +14,7 @@ public class WrapperTest01 {
         long longP = 10;
         float floatP = 10F;
         double doubleP = 10D;
-        char charp = 'W';
+        char charP = 'W';
         boolean booleanP = false;
 
         Byte byteW = 127;
@@ -38,8 +38,11 @@ public class WrapperTest01 {
 
         System.out.println(aTrue);
 
-
-        System.out.println(Character.isDigit(charp));
+        System.out.println(Character.isDigit(charP));
+        System.out.println(Character.isDigit(Integer.parseInt("10")));
+        System.out.println(Character.isLetterOrDigit('@'));
+        System.out.println(Character.isUpperCase('A'));
+        System.out.println(Character.isLowerCase('a'));
     }
 
 }
