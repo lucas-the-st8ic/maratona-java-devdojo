@@ -1,0 +1,7 @@
+package academy.devdojo.maratonajava.javacore.Qstring.test;
+
+public class StringTest02 {
+    static void main(String[] args) {
+        
+    }
+}
