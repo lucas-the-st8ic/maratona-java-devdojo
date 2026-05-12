@@ -11,6 +11,8 @@ public class StringBuilderTest01 {
         StringBuilder stringBuilder = new StringBuilder("Lucas Silva");
         stringBuilder.append(" Dev Java").append(" backend");
         String substring = stringBuilder.substring(0, 2);
+        //stringBuilder.reverse();
+        stringBuilder.delete(0, 5);
         System.out.println(stringBuilder);
 
     }
