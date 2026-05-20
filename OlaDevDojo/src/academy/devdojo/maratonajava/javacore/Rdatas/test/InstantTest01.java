@@ -15,6 +15,6 @@ public class InstantTest01 {
 
         System.out.println(Instant.ofEpochSecond(3, 0));
         System.out.println(Instant.ofEpochSecond(3, 1_000_000_000));
-        
+
     }
 }
