@@ -1,6 +1,7 @@
 package academy.devdojo.maratonajava.javacore.Rdatas.test;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -17,7 +18,15 @@ public class DurationTest01 {
 
         Duration duration = Duration.between(now, birthday);
         Duration durationMinus7Hours = Duration.between(timeNow, timeMinus7Hours);
+        Duration duration2 = Duration.between(Instant.now(), Instant.now().plusSeconds(1000));
+
+        Duration days = Duration.ofDays(20);
+        Duration minutes = Duration.ofMinutes(10);
+
         System.out.println(duration);
         System.out.println(durationMinus7Hours);
+
+        System.out.println(days);
+        System.out.println(minutes);
     }
 }
