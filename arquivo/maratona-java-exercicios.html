@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercícios — Maratona Java DevDojo</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0f;
+    --surface: #141418;
+    --card: #1a1a20;
+    --border: #2a2a35;
+    --accent: #f97316;
+    --accent2: #fb923c;
+    --java: #e8572a;
+    --text: #e8e8f0;
+    --muted: #7a7a90;
+    --green: #4ade80;
+    --blue: #60a5fa;
+    --purple: #a78bfa;
+    --yellow: #facc15;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #0d0d0f 0%, #1a0a00 50%, #0d0d0f 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(249,115,22,0.12) 0%, transparent 70%);
+  }
+
+  header::after {
+    content: 'JAVA';
+    position: absolute;
+    font-size: 20rem;
+    font-weight: 800;
+    color: rgba(249,115,22,0.03);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    letter-spacing: -0.05em;
+    font-family: 'Syne', sans-serif;
+  }
+
+  .logo-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.2rem 0.7rem;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    position: relative;
+    background: linear-gradient(135deg, #fff 0%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    position: relative;
+  }
+
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Search + Filter */
+  .controls {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .search-box {
+    flex: 1;
+    min-width: 200px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.65rem 1rem;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-box:focus { border-color: var(--accent); }
+  .search-box::placeholder { color: var(--muted); }
+
+  .filter-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.65rem 1.1rem;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(249,115,22,0.08);
+  }
+
+  /* Main layout */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* Section (Module) */
+  .module {
+    margin-bottom: 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--surface);
+    transition: border-color 0.2s;
+  }
+
+  .module:hover { border-color: rgba(249,115,22,0.3); }
+
+  .module-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.5rem;
+    cursor: pointer;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .module-header:hover { background: rgba(249,115,22,0.05); }
+
+  .module-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    background: rgba(249,115,22,0.1);
+    border: 1px solid rgba(249,115,22,0.25);
+    border-radius: 4px;
+    padding: 0.1rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  .module-title {
+    flex: 1;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .module-badge {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .chevron {
+    color: var(--muted);
+    transition: transform 0.25s;
+    font-size: 0.85rem;
+  }
+
+  .module.open .chevron { transform: rotate(180deg); }
+
+  .module-body {
+    display: none;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .module.open .module-body { display: block; }
+
+  .aula-ref {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255,255,255,0.03);
+    border-left: 2px solid var(--border);
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* Exercise list */
+  .ex-list { list-style: none; }
+
+  .ex-item {
+    display: flex;
+    gap: 0.85rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: flex-start;
+  }
+
+  .ex-item:last-child { border-bottom: none; }
+
+  .ex-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--muted);
+    min-width: 28px;
+    margin-top: 2px;
+  }
+
+  .ex-content { flex: 1; }
+
+  .ex-title {
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .ex-detail {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .diff {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  .diff-1 { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+  .diff-2 { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.2); }
+  .diff-3 { background: rgba(250,204,21,0.12); color: var(--yellow); border: 1px solid rgba(250,204,21,0.2); }
+  .diff-4 { background: rgba(249,115,22,0.12); color: var(--accent); border: 1px solid rgba(249,115,22,0.2); }
+  .diff-5 { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+
+  .check-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    margin-top: 1px;
+    color: transparent;
+    font-size: 0.7rem;
+  }
+
+  .check-btn:hover { border-color: var(--green); }
+  .check-btn.done { background: var(--green); border-color: var(--green); color: #000; }
+
+  /* Progress */
+  .progress-bar-wrap {
+    height: 3px;
+    background: var(--border);
+    margin-top: 0.6rem;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--java), var(--accent2));
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  /* Legend */
+  .legend {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    align-items: center;
+  }
+
+  .legend-label { font-size: 0.75rem; color: var(--muted); margin-right: 0.5rem; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .module-header { padding: 0.9rem 1rem; }
+    .module-body { padding: 1rem; }
+    .stats-bar { gap: 1rem; }
+    .stat-num { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-tag">DevDojo Academy</div>
+  <h1>Maratona Java<br>— Lista de Exercícios</h1>
+  <p class="subtitle">284 aulas · Exercícios do básico ao avançado seguindo o curso</p>
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num" id="total-ex">0</div><div class="stat-label">Exercícios</div></div>
+    <div class="stat"><div class="stat-num" id="total-done">0</div><div class="stat-label">Concluídos</div></div>
+    <div class="stat"><div class="stat-num" id="total-mod">0</div><div class="stat-label">Módulos</div></div>
+    <div class="stat"><div class="stat-num" id="total-pct">0%</div><div class="stat-label">Progresso</div></div>
+  </div>
+</header>
+
+<div class="controls">
+  <input class="search-box" type="text" placeholder="🔍  Pesquisar exercício ou módulo..." id="searchInput">
+  <button class="filter-btn active" data-diff="all">Todos</button>
+  <button class="filter-btn" data-diff="1">Iniciante</button>
+  <button class="filter-btn" data-diff="2">Básico</button>
+  <button class="filter-btn" data-diff="3">Médio</button>
+  <button class="filter-btn" data-diff="4">Avançado</button>
+  <button class="filter-btn" data-diff="5">Expert</button>
+</div>
+
+<main id="main-content">
+
+<div class="legend">
+  <span class="legend-label">Dificuldade:</span>
+  <span class="diff diff-1">Iniciante</span>
+  <span class="diff diff-2">Básico</span>
+  <span class="diff diff-3">Médio</span>
+  <span class="diff diff-4">Avançado</span>
+  <span class="diff diff-5">Expert</span>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODULES DATA INJECTED BY JS BELOW -->
+<!-- ============================================================ -->
+
+</main>
+
+<script>
+const MODULES = [
+  {
+    id: 1,
+    title: "Introdução & Configuração do Ambiente",
+    aulas: "Aulas 01–08",
+    exercises: [
+      { title: "Instalar JDK e verificar versão no terminal com java -version", diff: 1 },
+      { title: "Configurar variáveis de ambiente JAVA_HOME e PATH", diff: 1 },
+      { title: "Compilar manualmente HelloWorld.java com javac e executar com java", diff: 1 },
+      { title: "Criar projeto no IntelliJ e rodar o primeiro programa", diff: 1 },
+      { title: "Criar três pacotes (model, service, util) e mover classes entre eles", diff: 2 },
+      { title: "Adicionar comentários de linha, bloco e Javadoc a uma classe de exemplo", diff: 1 },
+      { title: "Escrever um programa que imprime seu nome, idade e cidade em linhas separadas", diff: 1 },
+    ]
+  },
+  {
+    id: 2,
+    title: "Tipos Primitivos & Strings",
+    aulas: "Aulas 10–14",
+    exercises: [
+      { title: "Declarar variáveis de todos os 8 tipos primitivos e imprimir seus valores padrão", diff: 1 },
+      { title: "Calcular o intervalo de valores de byte, short, int e long usando MIN_VALUE/MAX_VALUE", diff: 2 },
+      { title: "Fazer casting explícito de double para int e observar a perda de precisão", diff: 2 },
+      { title: "Converter temperaturas de Celsius para Fahrenheit usando variáveis double", diff: 2 },
+      { title: "Criar uma variável String e usar concat, length, charAt, substring e toUpperCase", diff: 1 },
+      { title: "Praticar overflow: somar Integer.MAX_VALUE + 1 e explicar o resultado", diff: 3 },
+      { title: "Usar printf para formatar moeda, datas e porcentagens na saída", diff: 2 },
+      { title: "Calcular área e perímetro de círculo, quadrado e triângulo usando tipos double", diff: 2 },
+      { title: "Criar um programa de IMC: ler peso e altura e classificar o resultado", diff: 2 },
+    ]
+  },
+  {
+    id: 3,
+    title: "Operadores",
+    aulas: "Aulas 15–19",
+    exercises: [
+      { title: "Usar os quatro operadores aritméticos e o módulo com inteiros e doubles", diff: 1 },
+      { title: "Demonstrar a diferença entre i++ e ++i em um loop", diff: 2 },
+      { title: "Escrever expressões com todos os operadores relacionais (==, !=, <, >, <=, >=)", diff: 1 },
+      { title: "Criar tabela verdade de && e || com quatro combinações de boolean", diff: 2 },
+      { title: "Usar operadores de atribuição composta (+=, -=, *=, /=, %=)", diff: 1 },
+      { title: "Implementar calculadora simples com as quatro operações e tratamento de divisão por zero", diff: 2 },
+      { title: "Calcular saldo bancário após sequência de depósitos e saques usando operadores de atribuição", diff: 2 },
+    ]
+  },
+  {
+    id: 4,
+    title: "Estruturas Condicionais",
+    aulas: "Aulas 20–26",
+    exercises: [
+      { title: "Verificar se um número é positivo, negativo ou zero com if/else if/else", diff: 1 },
+      { title: "Determinar o maior entre três números sem usar Math.max", diff: 2 },
+      { title: "Classificar triângulo (equilátero, isósceles, escaleno ou inválido) dado os três lados", diff: 2 },
+      { title: "Usar operador ternário para retornar 'par' ou 'ímpar'", diff: 1 },
+      { title: "Criar calculadora com switch que suporte +, -, *, / e um default de erro", diff: 2 },
+      { title: "Determinar o dia da semana por número (1–7) com switch e exibir o nome", diff: 1 },
+      { title: "Calcular imposto de renda com faixas progressivas usando if/else if", diff: 3 },
+      { title: "Verificar se um ano é bissexto usando a regra completa (div 4, 100 e 400)", diff: 3 },
+      { title: "Criar menu interativo com Scanner e switch que chama diferentes opções", diff: 3 },
+      { title: "Implementar validador de senha com múltiplos critérios usando operadores lógicos", diff: 3 },
+    ]
+  },
+  {
+    id: 5,
+    title: "Estruturas de Repetição",
+    aulas: "Aulas 27–31",
+    exercises: [
+      { title: "Imprimir números de 1 a 100 com while, do-while e for", diff: 1 },
+      { title: "Somar todos os números ímpares de 1 a 1000 com for", diff: 1 },
+      { title: "Imprimir a tabuada de 1 a 10 com dois fors aninhados", diff: 2 },
+      { title: "Usar break para sair de um loop ao encontrar o primeiro número primo >= 50", diff: 2 },
+      { title: "Usar continue para pular múltiplos de 3 e imprimir o restante de 1 a 50", diff: 2 },
+      { title: "Calcular fatorial de N usando for", diff: 2 },
+      { title: "Calcular os N primeiros termos da sequência de Fibonacci com while", diff: 3 },
+      { title: "Adivinhar número secreto: loop que pede tentativas até acertar ou esgotar limite", diff: 3 },
+      { title: "Verificar se um número é primo usando for com break otimizado (até √n)", diff: 3 },
+      { title: "Imprimir padrão de triângulo de asteriscos com loops aninhados", diff: 3 },
+      { title: "Calcular potência a^b sem Math.pow usando laço de repetição", diff: 2 },
+    ]
+  },
+  {
+    id: 6,
+    title: "Arrays",
+    aulas: "Aulas 32–38",
+    exercises: [
+      { title: "Declarar, inicializar e percorrer um array de 10 inteiros com for e foreach", diff: 1 },
+      { title: "Encontrar o maior e o menor valor em um array sem ordenação", diff: 2 },
+      { title: "Calcular média e desvio padrão de um array de doubles", diff: 2 },
+      { title: "Inverter os elementos de um array sem usar estrutura auxiliar", diff: 2 },
+      { title: "Verificar se um array está ordenado em ordem crescente", diff: 2 },
+      { title: "Remover duplicatas de um array e compactar o resultado", diff: 3 },
+      { title: "Implementar busca linear e busca binária em array ordenado", diff: 3 },
+      { title: "Criar e percorrer uma matriz 3×3 com arrays multidimensionais", diff: 2 },
+      { title: "Calcular a soma de cada linha e coluna de uma matriz N×M", diff: 3 },
+      { title: "Transpor uma matriz quadrada (trocar linhas por colunas)", diff: 3 },
+      { title: "Implementar Bubble Sort para ordenar um array de inteiros", diff: 3 },
+      { title: "Juntar dois arrays ordenados em um terceiro array ordenado", diff: 4 },
+    ]
+  },
+  {
+    id: 7,
+    title: "Orientação a Objetos — Classes & Métodos",
+    aulas: "Aulas 39–53",
+    exercises: [
+      { title: "Criar classe Carro com atributos marca, modelo, ano e método exibir()", diff: 1 },
+      { title: "Instanciar três objetos Carro e imprimir seus dados", diff: 1 },
+      { title: "Adicionar método calcularIdade() que retorna o ano atual menos o ano do carro", diff: 2 },
+      { title: "Criar método estático converterKmParaMilhas(double km)", diff: 2 },
+      { title: "Demonstrar passagem de primitivo vs referência criando métodos que tentam alterar ambos", diff: 3 },
+      { title: "Implementar método varargs que recebe N notas e calcula a média", diff: 2 },
+      { title: "Criar classe Conta com métodos depositar(double), sacar(double) e obterSaldo()", diff: 2 },
+      { title: "Usar referência this para distinguir atributos de parâmetros em setters", diff: 2 },
+      { title: "Criar classe Calculadora com métodos sobrecarregados soma(int,int), soma(double,double), soma(int,int,int)", diff: 2 },
+      { title: "Criar método que recebe array de Strings e retorna a String mais longa", diff: 3 },
+      { title: "Classe Retangulo com métodos area(), perimetro() e comparar(Retangulo outro)", diff: 2 },
+    ]
+  },
+  {
+    id: 8,
+    title: "Encapsulamento, Construtores & Static",
+    aulas: "Aulas 54–63",
+    exercises: [
+      { title: "Encapsular todos os atributos de Pessoa com private e criar getters/setters com validação", diff: 2 },
+      { title: "Adicionar validação no set de idade para rejeitar valores negativos", diff: 2 },
+      { title: "Criar construtor com parâmetros obrigatórios e sobrecarga sem parâmetros", diff: 2 },
+      { title: "Implementar bloco de inicialização para log de criação de objeto", diff: 3 },
+      { title: "Criar contador estático que conta quantas instâncias de uma classe foram criadas", diff: 3 },
+      { title: "Implementar classe Configuracao com atributos e método estáticos (padrão utilitário)", diff: 2 },
+      { title: "Criar classe MathUtils com métodos estáticos: fatorial, fibonacci, isPrimo", diff: 3 },
+      { title: "Bloco estático para inicializar recursos compartilhados (ex: lista de configurações)", diff: 3 },
+    ]
+  },
+  {
+    id: 9,
+    title: "Associação entre Classes",
+    aulas: "Aulas 64–70",
+    exercises: [
+      { title: "Criar classe Turma que contém um array de Aluno e método adicionarAluno()", diff: 2 },
+      { title: "Implementar associação unidirecional: Pedido → Produto (1 para N)", diff: 2 },
+      { title: "Criar associação bidirecional: Autor ↔ Livro", diff: 3 },
+      { title: "Criar classe Biblioteca com lista de Livros e métodos buscarPorTítulo() e listarDisponíveis()", diff: 3 },
+      { title: "Ler dados de vários alunos pelo Scanner e armazenar em array de Aluno", diff: 2 },
+      { title: "Sistema de estoque: Produto tem Categoria, Estoque contém Produtos. Exibir relatório.", diff: 4 },
+    ]
+  },
+  {
+    id: 10,
+    title: "Herança",
+    aulas: "Aulas 71–76",
+    exercises: [
+      { title: "Criar hierarquia Animal → Cachorro, Gato com método fazerSom() sobrescrito", diff: 2 },
+      { title: "Usar super() para chamar construtor da superclasse em Funcionario → Gerente", diff: 2 },
+      { title: "Demonstrar acesso protected: atributo na superclasse, uso na subclasse", diff: 2 },
+      { title: "Criar cadeia de herança de três níveis: Veiculo → Carro → CarroEletrico", diff: 3 },
+      { title: "Sobrescrever toString() em todas as classes de uma hierarquia", diff: 2 },
+      { title: "Verificar a sequência de inicialização com prints nos construtores e blocos de inicialização", diff: 3 },
+      { title: "Criar hierarquia de Formas Geométricas com cálculo de área e perímetro", diff: 3 },
+    ]
+  },
+  {
+    id: 11,
+    title: "Modificador final & Enumerações",
+    aulas: "Aulas 77–83",
+    exercises: [
+      { title: "Criar constante final PI e usá-la em cálculos geométricos", diff: 1 },
+      { title: "Tentar (e falhar) alterar uma referência final e explicar o comportamento", diff: 2 },
+      { title: "Criar classe final e verificar que não pode ser extendida", diff: 2 },
+      { title: "Criar enum DiaSemana com métodos isWeekend() e getLabelPT()", diff: 2 },
+      { title: "Enum Planeta com atributos massa e raio e método calcularGravidade()", diff: 3 },
+      { title: "Enum StatusPedido com transições válidas e método podeTransitarPara(StatusPedido next)", diff: 4 },
+      { title: "Buscar enum por atributo (ex: buscar Moeda pelo código 'BRL')", diff: 3 },
+    ]
+  },
+  {
+    id: 12,
+    title: "Classes Abstratas & Interfaces",
+    aulas: "Aulas 84–89",
+    exercises: [
+      { title: "Criar classe abstrata Forma com método abstrato area() e implementar em Circle, Square, Triangle", diff: 2 },
+      { title: "Impedir instanciação direta de classe abstrata e demonstrar o erro", diff: 1 },
+      { title: "Interface Desenhavel com método desenhar() implementada por múltiplas formas", diff: 2 },
+      { title: "Implementar múltiplas interfaces em uma classe (ex: Serializable + Comparable)", diff: 3 },
+      { title: "Adicionar método default em interface e sobrescrevê-lo em uma implementação", diff: 3 },
+      { title: "Interface com método estático utilitário e uso sem instância", diff: 2 },
+      { title: "Definir contrato de repositório genérico como interface (save, findById, delete, findAll)", diff: 4 },
+    ]
+  },
+  {
+    id: 13,
+    title: "Polimorfismo",
+    aulas: "Aulas 90–94",
+    exercises: [
+      { title: "Criar array de Animal[] e chamar fazerSom() em cada elemento — polimorfismo em ação", diff: 2 },
+      { title: "Passar objeto pela superclasse como parâmetro e chamar métodos sobrescritos", diff: 2 },
+      { title: "Usar instanceof antes de cast e demonstrar ClassCastException sem o teste", diff: 3 },
+      { title: "Programar para a interface: método que recebe List<> e funciona com ArrayList e LinkedList", diff: 3 },
+      { title: "Sistema de pagamento polimórfico: Pagamento → CartaoCredito, Boleto, Pix", diff: 4 },
+      { title: "Implementar padrão Strategy usando polimorfismo para diferentes algoritmos de ordenação", diff: 5 },
+    ]
+  },
+  {
+    id: 14,
+    title: "Exceções",
+    aulas: "Aulas 95–105",
+    exercises: [
+      { title: "Provocar NullPointerException, ArrayIndexOutOfBoundsException e ClassCastException", diff: 1 },
+      { title: "Capturar NumberFormatException ao converter String para int com try-catch", diff: 2 },
+      { title: "Lançar IllegalArgumentException com mensagem quando idade for negativa", diff: 2 },
+      { title: "Criar exceção checada ContaSaldoInsuficienteException e lançar em saque()", diff: 3 },
+      { title: "Usar bloco finally para fechar recurso fictício independente de exceção", diff: 2 },
+      { title: "Capturar múltiplas exceções em um único catch com | (multi-catch)", diff: 2 },
+      { title: "Usar try-with-resources com Scanner para garantir fechamento automático", diff: 3 },
+      { title: "Criar hierarquia de exceções de domínio (AppException → BusinessException → ValidationException)", diff: 4 },
+      { title: "Implementar re-lançamento de exceção encapsulando a original como causa", diff: 3 },
+      { title: "Verificar que subclasse não pode declarar exceção checked mais ampla que a superclasse", diff: 3 },
+    ]
+  },
+  {
+    id: 15,
+    title: "Classes Utilitárias — Wrappers & Strings",
+    aulas: "Aulas 106–111",
+    exercises: [
+      { title: "Converter String para int, long, double com os métodos parse*() dos wrappers", diff: 1 },
+      { title: "Demonstrar autoboxing e unboxing entre int e Integer", diff: 2 },
+      { title: "Usar Integer.toBinaryString(), toOctalString() e toHexString()", diff: 2 },
+      { title: "Manipular String com split, replace, replaceAll, contains, startsWith, endsWith", diff: 2 },
+      { title: "Comparar duas Strings com == vs .equals() e explicar a diferença", diff: 2 },
+      { title: "Inverter uma String usando StringBuilder sem loops explícitos", diff: 2 },
+      { title: "Concatenar 10.000 strings com + vs StringBuilder e medir tempo de execução", diff: 3 },
+      { title: "Implementar anagramas: verificar se duas strings são anagramas com sort de chars", diff: 3 },
+      { title: "Contar frequência de cada caractere em uma frase usando um Map<Character,Integer>", diff: 3 },
+    ]
+  },
+  {
+    id: 16,
+    title: "Datas & Tempo",
+    aulas: "Aulas 112–129",
+    exercises: [
+      { title: "Criar data atual com LocalDate.now() e imprimir dia, mês e ano separadamente", diff: 1 },
+      { title: "Calcular diferença em dias entre duas datas com ChronoUnit.DAYS.between()", diff: 2 },
+      { title: "Usar LocalDateTime para registrar timestamp de login e calcular duração de sessão", diff: 2 },
+      { title: "Formatar data com DateTimeFormatter para dd/MM/yyyy e yyyy-MM-dd'T'HH:mm:ss", diff: 2 },
+      { title: "Converter Instant para LocalDateTime em diferentes TimeZones com ZoneId", diff: 3 },
+      { title: "Calcular próxima segunda-feira usando TemporalAdjusters.next(DayOfWeek.MONDAY)", diff: 3 },
+      { title: "Usar Period para exibir idade em anos, meses e dias", diff: 2 },
+      { title: "Criar agendador fictício que valida se data de agendamento é futura", diff: 3 },
+      { title: "Converter datas legadas Date/Calendar para a API moderna java.time.*", diff: 3 },
+    ]
+  },
+  {
+    id: 17,
+    title: "Internacionalização & ResourceBundle",
+    aulas: "Aulas 115–117, 130",
+    exercises: [
+      { title: "Formatar número com Locale pt-BR e en-US e comparar saídas", diff: 2 },
+      { title: "Formatar valor monetário em Real, Dólar e Euro usando NumberFormat.getCurrencyInstance(Locale)", diff: 2 },
+      { title: "Criar arquivos messages_pt_BR.properties e messages_en_US.properties e carregar com ResourceBundle", diff: 3 },
+      { title: "Exibir mensagens de saudação em dois idiomas baseado no Locale do sistema", diff: 3 },
+    ]
+  },
+  {
+    id: 18,
+    title: "Regex",
+    aulas: "Aulas 131–136",
+    exercises: [
+      { title: "Validar e-mail com regex usando Pattern.matches()", diff: 2 },
+      { title: "Validar CEP brasileiro (formato 00000-000)", diff: 2 },
+      { title: "Extrair todos os números de uma String com Matcher e grupo de captura", diff: 3 },
+      { title: "Substituir múltiplos espaços por um único com replaceAll(\\\\s+, \" \")", diff: 2 },
+      { title: "Validar CPF no formato 000.000.000-00", diff: 3 },
+      { title: "Validar número de telefone com e sem DDD e máscara variável", diff: 3 },
+      { title: "Implementar parser simples de CSV usando split com regex como delimitador", diff: 3 },
+    ]
+  },
+  {
+    id: 19,
+    title: "IO & NIO",
+    aulas: "Aulas 137–158",
+    exercises: [
+      { title: "Criar, verificar existência e deletar arquivo com a classe File", diff: 1 },
+      { title: "Escrever lista de tarefas em arquivo com FileWriter", diff: 2 },
+      { title: "Ler arquivo de texto linha por linha com BufferedReader", diff: 2 },
+      { title: "Copiar arquivo de origem para destino usando BufferedReader + BufferedWriter", diff: 3 },
+      { title: "Listar todos os arquivos .java em um diretório com File.listFiles() e filtro", diff: 2 },
+      { title: "Criar diretório e subdiretórios com Files.createDirectories(Path)", diff: 2 },
+      { title: "Mover e renomear arquivo com Files.move()", diff: 2 },
+      { title: "Percorrer árvore de diretórios com SimpleFileVisitor e contar arquivos por extensão", diff: 4 },
+      { title: "Usar PathMatcher para buscar todos os .log em subdiretórios recursivos", diff: 4 },
+      { title: "Compactar um diretório em .zip com ZipOutputStream", diff: 4 },
+      { title: "Ler propriedades de arquivo com BasicFileAttributes (tamanho, data de modificação)", diff: 3 },
+    ]
+  },
+  {
+    id: 20,
+    title: "Serialização",
+    aulas: "Aulas 159–160",
+    exercises: [
+      { title: "Serializar objeto Pessoa em arquivo .ser e desserializar de volta", diff: 2 },
+      { title: "Marcar campo sensível como transient e verificar que não é serializado", diff: 2 },
+      { title: "Serializar lista de objetos em arquivo e recuperar a lista completa", diff: 3 },
+      { title: "Versionar serialização com serialVersionUID e testar incompatibilidade", diff: 3 },
+    ]
+  },
+  {
+    id: 21,
+    title: "Coleções — List, Set, Map, Queue",
+    aulas: "Aulas 161–182",
+    exercises: [
+      { title: "Implementar equals() e hashCode() corretamente em classe Produto", diff: 3 },
+      { title: "Criar ArrayList, adicionar, remover, acessar por índice e iterar com Iterator", diff: 1 },
+      { title: "Ordenar lista de Strings com Collections.sort() e lista de objetos com Comparator", diff: 2 },
+      { title: "Usar Comparable para ordenação natural de objetos Funcionario por salário", diff: 3 },
+      { title: "Implementar busca binária em lista ordenada com Collections.binarySearch()", diff: 3 },
+      { title: "Converter array em List e List em array", diff: 2 },
+      { title: "Usar HashSet para eliminar duplicatas de uma lista de nomes", diff: 2 },
+      { title: "TreeSet para manter conjunto de palavras em ordem alfabética e fazer subSet()", diff: 3 },
+      { title: "Contar ocorrências de palavras em texto com HashMap<String,Integer>", diff: 3 },
+      { title: "Usar LinkedHashMap para manter ordem de inserção em cache simples (LRU)", diff: 4 },
+      { title: "TreeMap para índice telefônico: buscar por intervalo de nomes com subMap()", diff: 3 },
+      { title: "PriorityQueue para simular fila de atendimento por prioridade de ticket", diff: 4 },
+      { title: "Calcular complexidade Big-O de operações em ArrayList vs LinkedList vs HashSet", diff: 3 },
+    ]
+  },
+  {
+    id: 22,
+    title: "Generics",
+    aulas: "Aulas 183–188",
+    exercises: [
+      { title: "Criar classe Par<A, B> genérica que armazena dois valores de tipos diferentes", diff: 2 },
+      { title: "Criar método genérico <T extends Comparable<T>> T maximo(T a, T b)", diff: 3 },
+      { title: "Usar wildcard ? extends Number para somar elementos de lista de qualquer número", diff: 3 },
+      { title: "Usar wildcard ? super Integer para adicionar inteiros em lista de tipo mais genérico", diff: 3 },
+      { title: "Criar repositório genérico Repositorio<T> com add(), findAll() e findById()", diff: 4 },
+      { title: "Implementar pilha genérica Pilha<T> com push(), pop() e peek()", diff: 3 },
+    ]
+  },
+  {
+    id: 23,
+    title: "Classes Internas",
+    aulas: "Aulas 189–192",
+    exercises: [
+      { title: "Criar classe interna não-estática e acessar atributos da classe externa", diff: 2 },
+      { title: "Criar classe local dentro de método e usá-la apenas no escopo daquele método", diff: 2 },
+      { title: "Implementar Comparator com classe anônima para ordenar lista", diff: 3 },
+      { title: "Criar classe aninhada estática como builder da classe externa", diff: 4 },
+      { title: "Usar interface com classe anônima para evento de clique fictício", diff: 3 },
+    ]
+  },
+  {
+    id: 24,
+    title: "Lambdas & Interfaces Funcionais",
+    aulas: "Aulas 193–200",
+    exercises: [
+      { title: "Substituir Comparator de classe anônima por lambda em sort()", diff: 2 },
+      { title: "Usar Predicate<String> para filtrar lista de nomes que começam com 'A'", diff: 2 },
+      { title: "Compor predicados com and(), or() e negate()", diff: 3 },
+      { title: "Usar Consumer<String> para imprimir cada elemento de uma lista", diff: 1 },
+      { title: "Usar Function<String, Integer> para transformar lista de strings em lista de tamanhos", diff: 2 },
+      { title: "Criar cadeia de funções com andThen() e compose()", diff: 3 },
+      { title: "Usar Supplier<LocalDate> que retorna data atual sem parâmetros", diff: 2 },
+      { title: "Method Reference: estático, de instância, de instância arbitrária e de construtor", diff: 3 },
+      { title: "Criar interface funcional própria @FunctionalInterface e usá-la com lambda", diff: 3 },
+    ]
+  },
+  {
+    id: 25,
+    title: "Optional",
+    aulas: "Aulas 201–202",
+    exercises: [
+      { title: "Substituir retorno null de buscarUsuario() por Optional<Usuario>", diff: 2 },
+      { title: "Usar orElse(), orElseGet() e orElseThrow() em Optional", diff: 2 },
+      { title: "Encadear map() e filter() em Optional para transformação segura", diff: 3 },
+      { title: "Demonstrar Optional.empty() vs Optional.ofNullable(null) vs Optional.of(null)", diff: 2 },
+    ]
+  },
+  {
+    id: 26,
+    title: "Streams",
+    aulas: "Aulas 203–219",
+    exercises: [
+      { title: "Filtrar lista de números pares com filter() e coletar em lista", diff: 1 },
+      { title: "Transformar lista de nomes em maiúsculas com map()", diff: 1 },
+      { title: "Encadear filter → map → sorted → limit → collect em pipeline completo", diff: 2 },
+      { title: "Usar flatMap para achatar lista de listas de números", diff: 3 },
+      { title: "Usar findFirst() e findAny() e comparar comportamento em parallel stream", diff: 3 },
+      { title: "Verificar anyMatch, allMatch e noneMatch em lista de produtos com preço > 100", diff: 2 },
+      { title: "Somar valores com reduce(0, Integer::sum) e com mapToInt().sum()", diff: 2 },
+      { title: "Gerar stream infinito de Fibonacci com Stream.iterate e limitar com limit()", diff: 4 },
+      { title: "Coletar em Map com Collectors.groupingBy() por categoria de produto", diff: 3 },
+      { title: "Usar Collectors.summarizingInt() para estatísticas de salários", diff: 3 },
+      { title: "Contar ocorrências por grupo com groupingBy + counting()", diff: 3 },
+      { title: "Comparar desempenho de stream sequencial vs parallel com grande volume de dados", diff: 4 },
+      { title: "Usar Collectors.toUnmodifiableList() e testar imutabilidade", diff: 2 },
+    ]
+  },
+  {
+    id: 27,
+    title: "Threads",
+    aulas: "Aulas 220–228",
+    exercises: [
+      { title: "Criar thread extendendo Thread e implementando Runnable, comparar abordagens", diff: 2 },
+      { title: "Usar Thread.sleep() para simular operação demorada e observar estados", diff: 2 },
+      { title: "Usar join() para aguardar conclusão de thread antes de continuar", diff: 2 },
+      { title: "Demonstrar condição de corrida (race condition) em contador compartilhado", diff: 3 },
+      { title: "Corrigir condição de corrida com synchronized em método e bloco", diff: 3 },
+      { title: "Usar wait() e notifyAll() para implementar produtor-consumidor com buffer de tamanho fixo", diff: 4 },
+      { title: "Reproduzir deadlock com duas threads e dois locks e diagnosticar com thread dump", diff: 4 },
+      { title: "Usar volatile para variável visível entre threads sem synchronization completa", diff: 3 },
+    ]
+  },
+  {
+    id: 28,
+    title: "Concorrência Avançada",
+    aulas: "Aulas 229–245",
+    exercises: [
+      { title: "Substituir int++ por AtomicInteger.incrementAndGet() em ambiente multithread", diff: 2 },
+      { title: "Usar ReentrantLock com tryLock(timeout) para evitar espera infinita", diff: 3 },
+      { title: "Implementar produtor-consumidor com Condition e lock", diff: 4 },
+      { title: "Usar ReentrantReadWriteLock para cache thread-safe com múltiplos leitores", diff: 4 },
+      { title: "Usar CopyOnWriteArrayList em cenário com muitas leituras e poucas escritas", diff: 3 },
+      { title: "Criar pool de threads com Executors.newFixedThreadPool() e submeter tarefas", diff: 3 },
+      { title: "Usar ScheduledExecutorService para tarefa que executa a cada 5 segundos", diff: 3 },
+      { title: "Retornar resultado assíncrono com Callable e Future.get()", diff: 3 },
+      { title: "Encadear operações assíncronas com CompletableFuture.thenApply().thenAccept()", diff: 4 },
+      { title: "Combinar resultados de múltiplos CompletableFuture com allOf() e anyOf()", diff: 4 },
+      { title: "Tratar exceção em CompletableFuture com exceptionally() e handle()", diff: 4 },
+    ]
+  },
+  {
+    id: 29,
+    title: "Padrões de Projeto",
+    aulas: "Aulas 246–251",
+    exercises: [
+      { title: "Implementar Builder para classe Pessoa com muitos atributos opcionais", diff: 3 },
+      { title: "Criar Factory Method para instanciar diferentes tipos de Notificacao (Email, SMS, Push)", diff: 3 },
+      { title: "Singleton eager initialization para gerenciador de configuração", diff: 3 },
+      { title: "Singleton lazy com double-checked locking thread-safe", diff: 4 },
+      { title: "Singleton com enum: a forma mais simples e segura", diff: 3 },
+      { title: "Criar DTO para transferir dados de Pedido sem expor a entidade de domínio", diff: 3 },
+      { title: "Implementar padrão Observer: EventBus com subscribers registráveis", diff: 5 },
+      { title: "Implementar padrão Strategy para cálculo de frete com diferentes transportadoras", diff: 4 },
+    ]
+  },
+  {
+    id: 30,
+    title: "JDBC & Banco de Dados",
+    aulas: "Aulas 252–279",
+    exercises: [
+      { title: "Conectar à base MySQL com DriverManager e imprimir mensagem de sucesso", diff: 2 },
+      { title: "Inserir registro com Statement e verificar no banco", diff: 2 },
+      { title: "Deletar e atualizar registros com Statement", diff: 2 },
+      { title: "Buscar todos os registros com ResultSet e exibir no console", diff: 2 },
+      { title: "Buscar por nome com findByName() usando ResultSet", diff: 2 },
+      { title: "Usar PreparedStatement para inserção segura (previne SQL Injection)", diff: 3 },
+      { title: "Implementar CRUD completo (save, findAll, findByName, update, delete) com PreparedStatement", diff: 3 },
+      { title: "Usar transação JDBC: transferência bancária com commit e rollback", diff: 4 },
+      { title: "Chamar stored procedure com CallableStatement", diff: 3 },
+      { title: "Usar CachedRowSet (desconectado) e comparar com JdbcRowSet conectado", diff: 4 },
+      { title: "Criar repositório completo AnimeRepository com todas as operações CRUD", diff: 4 },
+      { title: "Extrair metadados de tabela com DatabaseMetaData (colunas, tipos, PKs)", diff: 3 },
+    ]
+  },
+  {
+    id: 31,
+    title: "Testes Unitários com JUnit",
+    aulas: "Aulas 280–281",
+    exercises: [
+      { title: "Criar teste JUnit 5 para método soma() da classe Calculadora", diff: 1 },
+      { title: "Usar @BeforeEach e @AfterEach para setup e teardown de contexto de teste", diff: 2 },
+      { title: "Testar lançamento de exceção com assertThrows()", diff: 2 },
+      { title: "Parametrizar teste com @ParameterizedTest e @ValueSource", diff: 3 },
+      { title: "Usar Mockito para simular dependência em teste de serviço", diff: 4 },
+      { title: "Medir cobertura de testes com relatório JaCoCo no Maven", diff: 4 },
+    ]
+  },
+  {
+    id: 32,
+    title: "Recursos Modernos do Java",
+    aulas: "Aulas 282–284",
+    exercises: [
+      { title: "Criar Record para representar coordenadas geográficas (lat, lon) imutáveis", diff: 2 },
+      { title: "Substituir DTO com getters verbosos por Record equivalente", diff: 2 },
+      { title: "Usar Pattern Matching com instanceof para eliminar cast explícito", diff: 2 },
+      { title: "Combinar Records, Optional e Streams em pipeline de transformação", diff: 4 },
+      { title: "Refatorar código legado (Java 8) para usar Records e Pattern Matching (Java 16+)", diff: 4 },
+    ]
+  },
+];
+
+// ---- Render ----
+const main = document.getElementById('main-content');
+let allItems = [];
+
+function renderModules(modules) {
+  // Clear dynamic content (keep legend)
+  const legend = main.querySelector('.legend');
+  main.innerHTML = '';
+  if (legend) main.appendChild(legend);
+
+  let totalEx = 0;
+  modules.forEach((mod, mi) => {
+    totalEx += mod.exercises.length;
+    const saved = JSON.parse(localStorage.getItem('done_' + mod.id) || '[]');
+
+    const div = document.createElement('div');
+    div.className = 'module';
+    div.dataset.id = mod.id;
+
+    const doneCount = saved.length;
+    const pct = Math.round(doneCount / mod.exercises.length * 100);
+
+    div.innerHTML = `
+      <div class="module-header" onclick="toggleModule(this)">
+        <span class="module-num">Módulo ${mod.id}</span>
+        <span class="module-title">${mod.title}</span>
+        <span class="module-badge">${mod.exercises.length} ex. · ${doneCount}/${mod.exercises.length}</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="progress-bar-wrap" style="margin:0;border-radius:0">
+        <div class="progress-bar-fill" style="width:${pct}%"></div>
+      </div>
+      <div class="module-body">
+        <div class="aula-ref"># ${mod.aulas}</div>
+        <ul class="ex-list">
+          ${mod.exercises.map((ex, ei) => `
+            <li class="ex-item" data-diff="${ex.diff}">
+              <button class="check-btn ${saved.includes(ei) ? 'done' : ''}" onclick="toggleDone(${mod.id},${ei},this)">✓</button>
+              <div class="ex-content">
+                <div class="ex-title">${ei+1}. ${ex.title}</div>
+              </div>
+              <span class="diff diff-${ex.diff}">${['','Iniciante','Básico','Médio','Avançado','Expert'][ex.diff]}</span>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    `;
+    main.appendChild(div);
+  });
+
+  updateStats();
+  document.getElementById('total-mod').textContent = modules.length;
+}
+
+function toggleModule(header) {
+  header.parentElement.classList.toggle('open');
+}
+
+function toggleDone(modId, exIdx, btn) {
+  let saved = JSON.parse(localStorage.getItem('done_' + modId) || '[]');
+  if (saved.includes(exIdx)) {
+    saved = saved.filter(i => i !== exIdx);
+    btn.classList.remove('done');
+  } else {
+    saved.push(exIdx);
+    btn.classList.add('done');
+  }
+  localStorage.setItem('done_' + modId, JSON.stringify(saved));
+
+  // Update badge and progress bar
+  const mod = MODULES.find(m => m.id === modId);
+  const moduleDiv = document.querySelector(`.module[data-id="${modId}"]`);
+  moduleDiv.querySelector('.module-badge').textContent = `${mod.exercises.length} ex. · ${saved.length}/${mod.exercises.length}`;
+  const pct = Math.round(saved.length / mod.exercises.length * 100);
+  moduleDiv.querySelector('.progress-bar-fill').style.width = pct + '%';
+
+  updateStats();
+}
+
+function updateStats() {
+  let total = 0, done = 0;
+  MODULES.forEach(mod => {
+    total += mod.exercises.length;
+    const saved = JSON.parse(localStorage.getItem('done_' + mod.id) || '[]');
+    done += saved.length;
+  });
+  document.getElementById('total-ex').textContent = total;
+  document.getElementById('total-done').textContent = done;
+  document.getElementById('total-pct').textContent = total ? Math.round(done/total*100) + '%' : '0%';
+}
+
+// Filtering
+let activeDiff = 'all';
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeDiff = btn.dataset.diff;
+    applyFilters();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+function applyFilters() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('.module').forEach(mod => {
+    const title = mod.querySelector('.module-title').textContent.toLowerCase();
+    const items = mod.querySelectorAll('.ex-item');
+    let anyVisible = false;
+    items.forEach(item => {
+      const text = item.querySelector('.ex-title').textContent.toLowerCase();
+      const diff = item.dataset.diff;
+      const matchDiff = activeDiff === 'all' || diff === activeDiff;
+      const matchQ = !q || text.includes(q) || title.includes(q);
+      item.style.display = matchDiff && matchQ ? '' : 'none';
+      if (matchDiff && matchQ) anyVisible = true;
+    });
+    mod.style.display = anyVisible ? '' : 'none';
+  });
+}
+
+renderModules(MODULES);
+</script>
+</body>
+</html>
