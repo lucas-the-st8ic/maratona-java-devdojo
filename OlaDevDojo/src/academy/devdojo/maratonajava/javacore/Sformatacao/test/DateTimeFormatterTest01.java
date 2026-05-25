@@ -6,6 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class DateTimeFormatterTest01 {
+    //format - objeto para String
+    //parse - String para objeto
     static void main(String[] args) {
         LocalDate date = LocalDate.now();
 
