@@ -7,13 +7,14 @@ public class PatternMatcherTest01 {
     static void main(String[] args) {
         //lucas.dev@orkut.com.br
 
-        String regex = "ab";
-        String texto = "abaaababaaaaababaababab";
+        String regex = "aba";
+        //String texto = "abaaababaaaaababaababab";
+        String texto2 = "abababa";
 
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(texto);
+        Matcher matcher = pattern.matcher(texto2);
 
-        System.out.println("Texto:  " + texto);
+        System.out.println("Texto:  " + texto2);
         System.out.println("Indice: 0123456789");
         System.out.println("Regex:   " + regex);
         System.out.println("Posições encontradas:");
