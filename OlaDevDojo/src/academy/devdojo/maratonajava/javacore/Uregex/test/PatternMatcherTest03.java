@@ -17,9 +17,9 @@ public class PatternMatcherTest03 {
           [] -
          */
 
-        String regex = "[a-zA-C]";
+        String regex = "0[xX][0-9a-fA-F]";
         //String texto = "abababa";
-        String texto2 = "cafeBABE";
+        String texto2 = "12 0x 0x 0xFFABC 0x109 0x1";
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(texto2);
@@ -31,5 +31,8 @@ public class PatternMatcherTest03 {
         while (matcher.find()) {
             System.out.print(matcher.start()+ " "+matcher.group()+"\n");
         }
+
+        int numeroHEX = 0xFFFFFF;
+        System.out.println(numeroHEX);
     }
 }
