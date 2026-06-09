@@ -13,9 +13,13 @@ public class FileTest02 {
         boolean isArquivoCreated = fileArquivoDiretorio.createNewFile();
         System.out.println(isArquivoCreated);
 
-        File fileRenamed = new File("arquivo_renomeado.txt");
+        File fileRenamed = new File(fileDiretorio,"arquivo_renomeado.txt");
         boolean isRenamed = fileArquivoDiretorio.renameTo(fileRenamed);
-
         System.out.println(isRenamed);
+
+        File diretorioRenamed = new File("Pasta_2");
+        boolean isDiretorioRenamed = fileDiretorio.renameTo(diretorioRenamed);
+        System.out.println(isDiretorioRenamed);
+
     }
 }
