@@ -13,7 +13,7 @@ import java.io.IOException;
 public class FileWriter01 {
     static void main(String[] args) {
         File file = new File("file.txt");
-        try(FileWriter fw = new FileWriter(file,true);) {
+        try(FileWriter fw = new FileWriter(file,true)) {
             fw.write("Playlist DevDojo\n Acompanhe os videos do canal focado em programação Java\n");
             fw.flush();
         } catch (IOException ex) {
