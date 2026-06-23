@@ -8,11 +8,11 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class SimpleFileVisitorTest01 {
     static void main(String[] args) throws IOException {
         Path root = Paths.get(".");
-        Files.walkFileTree(root, new ListAllFiles());
+        Files.walkFileTree(root, new ListJavaFiles());
     }
 }
 
-class ListAllFiles extends SimpleFileVisitor<Path> {
+class ListJavaFiles extends SimpleFileVisitor<Path> {
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
        if(file.getFileName().toString().endsWith(".java")){
