@@ -7,9 +7,10 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class SimpleFileVisitorTest02 {
     static void main(String[] args) throws IOException {
-        Path root = Paths.get(".");
-        Files.walkFileTree(root, new ListJavaFiles());
+        Path root = Paths.get("pasta");
+        Files.walkFileTree(root, new ListAllFiles());
     }
+
 }
 
 class ListAllFiles extends SimpleFileVisitor<Path> {
@@ -21,7 +22,8 @@ class ListAllFiles extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-        return super.preVisitDirectory(dir, attrs);
+        System.out.println("Pre Visit: " +dir.getFileName());
+        return FileVisitResult.CONTINUE;
     }
 
     @Override
@@ -31,6 +33,7 @@ class ListAllFiles extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
-        return super.postVisitDirectory(dir, exc);
+        System.out.println("Post Visit: " +dir.getFileName());
+        return FileVisitResult.CONTINUE;
     }
 }
