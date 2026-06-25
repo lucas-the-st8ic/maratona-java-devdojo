@@ -5,16 +5,20 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
 class findAllTestJavaOrClass extends SimpleFileVisitor<Path> {
-    private PathMatcher matcher = FileSystems.getDefault().getPathMatcher("");
+    private PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:**/*{Test*}.{java,class}");
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        return super.visitFile(file, attrs);
+        if (matcher.matches(file)) {
+            System.out.println("File found: " + file.getFileName());
+        }
+        return FileVisitResult.CONTINUE;
     }
 }
 
 public class PathMatcherTest02 {
-    static void main(String[] args) {
-
+    static void main(String[] args) throws IOException {
+        Path root = Paths.get(".");
+        Files.walkFileTree(root, new findAllTestJavaOrClass());
     }
 }
