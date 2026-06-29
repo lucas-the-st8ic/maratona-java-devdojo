@@ -1,0 +1,22 @@
+package academy.devdojo.maratonajava.javacore.Wnio.test;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.zip.ZipOutputStream;
+
+public class ZipOutputStreamTest01 {
+    static void main(String[] args) {
+        Path arquivoZip = Paths.get("pasta/arquivo.zip");
+        Path arquivosParaZipar = Paths.get("pasta/subpasta1/subsubpasta1");
+    }
+
+    private static void zip(Path arquivoZip, Path arquivosParaZipar) {
+        try(ZipOutputStream zip = new ZipOutputStream(Files.newOutputStream(arquivoZip))) {
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
