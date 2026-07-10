@@ -78,7 +78,7 @@ public class Aluno implements Serializable {
                 ", nome='" + nome + '\'' +
                 ", password='" + password + '\'' +
                 ", NOME_ESCOLA='" + NOME_ESCOLA + '\'' +
-                ", Turma='" + turma + '\'' +
+                ", Turma='" + turma.getNome() + '\'' +
                 '}';
     }
 }

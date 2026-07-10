@@ -15,10 +15,5 @@ public class Turma {
         this.nome = nome;
     }
 
-    @Override
-    public String toString() {
-        return "Turma{" +
-                "nome='" + nome + '\'' +
-                '}';
-    }
+
 }
