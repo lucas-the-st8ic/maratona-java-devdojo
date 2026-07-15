@@ -31,8 +31,5 @@ public class ListTest01 {
 
         List<Integer> numeros = new ArrayList<>();
         numeros.add(1);
-
-        int num = 9119;
-        System.out.println(9119 % 10);
     }
 }
