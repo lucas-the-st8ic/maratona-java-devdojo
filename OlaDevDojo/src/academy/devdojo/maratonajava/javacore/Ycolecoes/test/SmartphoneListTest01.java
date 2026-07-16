@@ -19,6 +19,6 @@ public class SmartphoneListTest01 {
         for (Smartphone smartphone : smartphones) {
             System.out.println(smartphone);
         }
-        
+
     }
 }
