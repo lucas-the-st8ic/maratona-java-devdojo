@@ -62,4 +62,12 @@ public class Smartphone {
     public void setMarca(String marca) {
         this.marca = marca;
     }
+
+    @Override
+    public String toString() {
+        return
+                "Marca: " + marca +"\n" +
+                "Serial Number: " + serialNumber +
+                "\n-------------------";
+    }
 }
