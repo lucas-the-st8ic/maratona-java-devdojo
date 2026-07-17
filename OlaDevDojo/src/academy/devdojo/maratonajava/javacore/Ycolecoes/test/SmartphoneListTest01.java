@@ -20,5 +20,13 @@ public class SmartphoneListTest01 {
             System.out.println(smartphone);
         }
 
+        Smartphone cel4 = new Smartphone("3ABCD2", "Samsung A26");
+        smartphones.add(cel4);
+
+
+        System.out.println(smartphones.contains(cel4));
+        int indexSmartphone = smartphones.indexOf(cel4);
+
+        System.out.println(smartphones.get(indexSmartphone));
     }
 }
