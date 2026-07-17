@@ -3,6 +3,7 @@ package academy.devdojo.maratonajava.javacore.Ycolecoes.test;
 import academy.devdojo.maratonajava.javacore.Ycolecoes.dominio.Smartphone;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SmartphoneListTest01 {
@@ -16,12 +17,15 @@ public class SmartphoneListTest01 {
         smartphones.add(cel2);
         smartphones.add(cel3);
 
+
+
         for (Smartphone smartphone : smartphones) {
             System.out.println(smartphone);
         }
 
         Smartphone cel4 = new Smartphone("3ABCD2", "Samsung A26");
         smartphones.add(cel4);
+
 
 
         System.out.println(smartphones.contains(cel4));
