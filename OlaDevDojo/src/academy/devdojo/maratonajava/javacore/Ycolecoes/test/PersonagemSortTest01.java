@@ -4,7 +4,17 @@ import academy.devdojo.maratonajava.javacore.Ycolecoes.dominio.Personagem;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+class PersonagemByIdComparator
+        implements Comparator<Personagem> {
+
+    @Override
+    public int compare(Personagem p1, Personagem p2) {
+        return p1.getId().compareTo(p2.getId());
+    }
+}
 
 public class PersonagemSortTest01 {
     static void main(String[] args) {
@@ -25,6 +35,13 @@ public class PersonagemSortTest01 {
         }
 
         Collections.sort(personagensLDJ);
+        System.out.print("=================");
+        for (Personagem personagem : personagensLDJ) {
+            System.out.println(personagem);
+        }
+
+//      Collections.sort(personagensLDJ, new PersonagemByIdComparator());
+        personagensLDJ.sort(new PersonagemByIdComparator());
         System.out.print("=================");
         for (Personagem personagem : personagensLDJ) {
             System.out.println(personagem);
