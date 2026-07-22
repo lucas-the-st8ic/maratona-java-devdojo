@@ -16,6 +16,6 @@ public class BinarySearchTest01 {
         //value     0,2,3,4
         Collections.sort(numbers);
         System.out.printf(String.valueOf(Collections.binarySearch(numbers, 2)));
-        
+
     }
 }

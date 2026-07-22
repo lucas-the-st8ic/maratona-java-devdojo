@@ -6,6 +6,7 @@ public class Personagem implements Comparable<Personagem> {
     private Long id;
     private String nome;
     private Double powerLevel;
+    private int missoesConcluidas;
 
     public Personagem(Long id, String nome, Double powerLevel) {
         Objects.requireNonNull(id, "Id não pode ser null");
@@ -16,12 +17,18 @@ public class Personagem implements Comparable<Personagem> {
         this.powerLevel = powerLevel;
     }
 
+    public Personagem(Long id, String nome, Double powerLevel, int missoesConcluidas) {
+        this(id, nome, powerLevel);
+        this.missoesConcluidas = missoesConcluidas;
+    }
+
     @Override
     public String toString() {
         return "\nPersonagem:" +nome+ "\n"+
                 "Id: " +id+ "\n"+
-                "Power Level: " +powerLevel+
-                "\n-------------------------";
+                "Power Level: " +powerLevel+ "\n"+
+                "Missões Concluídas: " +missoesConcluidas+
+                "\n-----------------------------------";
     }
 
     @Override
@@ -64,12 +71,20 @@ public class Personagem implements Comparable<Personagem> {
         this.powerLevel = powerLevel;
     }
 
+    public int getMissoesConcluidas() {
+        return missoesConcluidas;
+    }
+
+    public void setMissoesConcluidas(int missoesConcluidas) {
+        this.missoesConcluidas = missoesConcluidas;
+    }
+
     /*Regras para o Comparable
-    -Precisa retornar um número inteiro
-        *retorna negativo se o this < p(outro personagem)
-        *retorna zero se this == p(outro personagem)
-        *retorna positivo se o this > p(outro personagem)
-    */
+        -Precisa retornar um número inteiro
+            *retorna negativo se o this < p(outro personagem)
+            *retorna zero se this == p(outro personagem)
+            *retorna positivo se o this > p(outro personagem)
+        */
     @Override
     public int compareTo(Personagem p) {
         /*if (this.id < p.getId()) {
