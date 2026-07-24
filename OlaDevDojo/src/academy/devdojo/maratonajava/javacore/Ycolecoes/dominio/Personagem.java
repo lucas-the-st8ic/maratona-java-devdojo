@@ -33,18 +33,14 @@ public class Personagem implements Comparable<Personagem> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Personagem personagem = (Personagem) o;
-        return Objects.equals(id, personagem.id)
-                && Objects.equals(nome, personagem.nome)
-                && Objects.equals(powerLevel, personagem.powerLevel);
+        return Objects.equals(id, personagem.id) && Objects.equals(nome, personagem.nome);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, powerLevel);
+        return Objects.hash(id, nome);
     }
 
     public Long getId() {

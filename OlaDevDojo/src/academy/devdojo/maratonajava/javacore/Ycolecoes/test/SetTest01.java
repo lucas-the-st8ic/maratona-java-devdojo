@@ -2,14 +2,13 @@ package academy.devdojo.maratonajava.javacore.Ycolecoes.test;
 
 import academy.devdojo.maratonajava.javacore.Ycolecoes.dominio.Personagem;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-public class IteratorTest01 {
+public class SetTest01 {
     static void main(String[] args) {
-        List<Personagem> personagensLDJ = new LinkedList<>();
+        Set<Personagem> personagensLDJ = new LinkedHashSet<>();
         personagensLDJ.add(new Personagem(27L, "Batman", 85.0, 1847));
         personagensLDJ.add(new Personagem(1L, "Superman", 100.0, 3850));
         personagensLDJ.add(new Personagem(8L, "Wonder Woman", 97.5, 1732));
@@ -23,21 +22,11 @@ public class IteratorTest01 {
         personagensLDJ.add(new Personagem(83L, "Booster Gold", 74.0, 300));
         personagensLDJ.add(new Personagem(11L, "The Question", 69.0, 210));
         personagensLDJ.add(new Personagem(89L, "Blue Beetle (Ted Kord)", 72.5, 100));
+        personagensLDJ.add(new Personagem(89L, "Blue Beetle (Ted Kord)", 72.5, 100));
 
-        System.out.println(personagensLDJ);
-        System.out.println("======================================");
-        /*Iterator<Personagem>  iterator = personagensLDJ.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getMissoesConcluidas() <= 300) {
-                iterator.remove();
-            }
+        for (Personagem personagem : personagensLDJ) {
+            System.out.println(personagem);
         }
-        System.out.println(personagensLDJ);*/
 
-
-        personagensLDJ.removeIf(personagem ->
-                personagem.getMissoesConcluidas() <= 300);
-
-        System.out.println(personagensLDJ);
     }
 }
