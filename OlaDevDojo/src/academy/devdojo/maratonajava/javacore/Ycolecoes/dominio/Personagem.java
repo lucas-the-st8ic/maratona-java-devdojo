@@ -98,6 +98,6 @@ public class Personagem implements Comparable<Personagem> {
         /*return this.id.compareTo(p.getId());*/
         /*return Double.compare(p.powerLevel, this.powerLevel);*/
         /*return p.powerLevel.compareTo(this.powerLevel);*/
-        return this.nome.compareTo(p.getNome());
+        return this.powerLevel.compareTo(p.powerLevel);
     }
 }

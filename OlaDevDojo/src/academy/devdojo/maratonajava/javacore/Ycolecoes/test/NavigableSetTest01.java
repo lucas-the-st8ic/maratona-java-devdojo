@@ -14,13 +14,20 @@ class SmartphoneMarcaComparator implements Comparator<Smartphone> {
     }
 }
 
+class PersonagemPowerLevelComparator implements Comparator<Personagem> {
+    @Override
+    public int compare(Personagem p1, Personagem p2) {
+        return Double.compare(p1.getPowerLevel(), p2.getPowerLevel());
+    }
+}
+
 public class NavigableSetTest01 {
     static void main(String[] args) {
         NavigableSet<Smartphone> set = new TreeSet<>(new SmartphoneMarcaComparator());
         Smartphone smartphone = new Smartphone("123", "Nokia");
         set.add(smartphone);
 
-        NavigableSet<Personagem> personagensLDJ = new TreeSet<>();
+        NavigableSet<Personagem> personagensLDJ = new TreeSet<>(new PersonagemPowerLevelComparator());
         personagensLDJ.add(new Personagem(27L, "Batman", 85.0, 1847));
         personagensLDJ.add(new Personagem(1L, "Superman", 100.0, 3850));
         personagensLDJ.add(new Personagem(8L, "Wonder Woman", 97.5, 1732));
@@ -37,10 +44,18 @@ public class NavigableSetTest01 {
         personagensLDJ.add(new Personagem(89L, "Blue Beetle (Ted Kord)", 72.5, 100));
         personagensLDJ.add(new Personagem(10L, "Atom", 72.5, 100));
 
-        for (Personagem personagem : personagensLDJ) {
+        for (Personagem personagem : personagensLDJ.descendingSet()) {
             System.out.println(personagem);
         }
+        System.out.println("=================================");
 
+        Personagem lobo = new Personagem(000L, "Lobo", 99.0, 1);
+
+        //lower <
+        //floor <=
+        //higher >
+        //ceiling >=
+        System.out.println(personagensLDJ.lower(lobo));
     }
 }
 
