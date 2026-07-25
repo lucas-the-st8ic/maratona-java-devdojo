@@ -33,6 +33,7 @@ public class Manga implements Comparable<Manga> {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Manga manga = (Manga) o;
         return Objects.equals(id, manga.id) && Objects.equals(nome, manga.nome);
@@ -77,27 +78,27 @@ public class Manga implements Comparable<Manga> {
 
     /*Regras para o Comparable
         -Precisa retornar um número inteiro
-            *retorna negativo se o this < p(outro manga)
-            *retorna zero se this == p(outro manga)
-            *retorna positivo se o this > p(outro manga)
+            *retorna negativo se o this < m(outro manga)
+            *retorna zero se this == m(outro manga)
+            *retorna positivo se o this > m(outro manga)
         */
     @Override
-    public int compareTo(Manga p) {
-        /*if (this.id < p.getId()) {
+    public int compareTo(Manga m) {
+        /*if (this.id < m.getId()) {
             return -1;
-        } else if (this.id.equals(p.getId())) {
+        } else if (this.id.equals(m.getId())) {
             return 0;
         } else {
            return 1;
         }*/
     /*se o preco fosse um valor primitivo ao invés
     de um wrapper ficaria assim:
-        return Double.compare(p.preco,
+        return Double.compare(m.preco,
         this.preco);
     */
-        /*return this.id.compareTo(p.getId());*/
-        /*return Double.compare(p.preco, this.preco);*/
-        /*return p.preco.compareTo(this.preco);*/
-        return this.preco.compareTo(p.preco);
+        /*return this.id.compareTo(m.getId());*/
+        /*return Double.compare(m.preco, this.preco);*/
+        /*return m.preco.compareTo(this.preco);*/
+        return this.preco.compareTo(m.preco);
     }
 }
