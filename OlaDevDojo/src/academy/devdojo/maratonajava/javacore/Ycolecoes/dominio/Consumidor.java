@@ -8,7 +8,7 @@ public class Consumidor {
     private String nome;
 
     public Consumidor(String nome) {
-        this.id = ThreadLocalRandom.current().nextLong();
+        this.id = ThreadLocalRandom.current().nextLong(0, 100_000);;
         this.nome = nome;
     }
 
@@ -31,5 +31,9 @@ public class Consumidor {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 '}';
+    }
+
+    public String getNome() {
+        return nome;
     }
 }
